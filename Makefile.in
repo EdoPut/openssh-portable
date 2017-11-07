@@ -60,7 +60,7 @@ EXEEXT=@EXEEXT@
 MANFMT=@MANFMT@
 MKDIR_P=@MKDIR_P@
 
-TARGETS=ssh$(EXEEXT) sshd$(EXEEXT) ssh-add$(EXEEXT) ssh-keygen$(EXEEXT) ssh-keyscan${EXEEXT} ssh-keysign${EXEEXT} ssh-pkcs11-helper$(EXEEXT) ssh-agent$(EXEEXT) scp$(EXEEXT) sftp-server$(EXEEXT) sftp$(EXEEXT)
+TARGETS=ssh$(EXEEXT) sshd$(EXEEXT) ssh-add$(EXEEXT) ssh-keycheck$(EXEEXT) ssh-keygen$(EXEEXT) ssh-keyscan${EXEEXT} ssh-keysign${EXEEXT} ssh-pkcs11-helper$(EXEEXT) ssh-agent$(EXEEXT) scp$(EXEEXT) sftp-server$(EXEEXT) sftp$(EXEEXT)
 
 XMSS_OBJS=\
 	ssh-xmss.o \
@@ -182,6 +182,9 @@ ssh-add$(EXEEXT): $(LIBCOMPAT) libssh.a ssh-add.o
 
 ssh-agent$(EXEEXT): $(LIBCOMPAT) libssh.a ssh-agent.o ssh-pkcs11-client.o
 	$(LD) -o $@ ssh-agent.o ssh-pkcs11-client.o $(LDFLAGS) -lssh -lopenbsd-compat $(LIBS)
+
+ssh-keycheck$(EXEEXT): $(LIBCOMPAT) libssh.a ssh-keycheck.o
+	$(LD) -o $@ ssh-keycheck.o $(LDFLAGS) -lssh -lopenbsd-compat $(LIBS)
 
 ssh-keygen$(EXEEXT): $(LIBCOMPAT) libssh.a ssh-keygen.o
 	$(LD) -o $@ ssh-keygen.o $(LDFLAGS) -lssh -lopenbsd-compat $(LIBS)
