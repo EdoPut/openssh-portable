@@ -75,10 +75,8 @@ check_signature(char *filename, char* certpath)
         if ((r = strcmp(ca_fp, signin_ca_fp)) != 0)
         {
                 printf("CA fingerprint does not match\n");
-        }
-        else
-        {
-                printf("CA fingerprint match\n");
+                printf("Signin  CA: %s\n", signin_ca_fp);
+                printf("Current CA: %s\n", ca_fp);
         }
 
         struct sshkey_cert *meta = cert->cert;
