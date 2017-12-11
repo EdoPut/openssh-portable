@@ -65,7 +65,7 @@ check_signature(char *filename, char* certpath)
         if ((r = sshkey_load_public(certpath, &cert, &cert_comment)) != 0)
         {
                 printf("Bad certificate file %s: %s\n", certpath, ssh_err(r));
-                return -1;
+                return -2;
         }
         // here begin real check
         ca_fp = sshkey_fingerprint(public_ca, fingerprint_hash, SSH_FP_DEFAULT);
