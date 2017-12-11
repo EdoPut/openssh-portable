@@ -94,7 +94,7 @@ check_signature(char *filename, char* certpath)
 
         sshkey_free(cert);
         sshkey_free(public_ca);
-        return ret;
+        return EXIT_SUCCESS;
 }
 
 int
