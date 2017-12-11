@@ -82,6 +82,7 @@ check_signature(char *filename, char* certpath)
                 printf("CA fingerprint does not match\n");
                 printf("Signin  CA: %s\n", signin_ca_fp);
                 printf("Current CA: %s\n", ca_fp);
+                return -4;
         }
 
         struct sshkey_cert *meta = cert->cert;
@@ -91,10 +92,12 @@ check_signature(char *filename, char* certpath)
         if (meta->valid_after > now )
         {
                 printf("Not yet valid\n");
+                return -5;
         }
         if (meta->valid_before < now)
         {
                 printf("Expired\n");
+                return -6;
         }
 
         sshkey_free(cert);
