@@ -79,9 +79,9 @@ check_signature(char *filename, char* certpath)
         // distinguish different ca
         if ((r = strcmp(ca_fp, signin_ca_fp)) != 0)
         {
-                printf("CA fingerprint does not match\n");
-                printf("Signin  CA: %s\n", signin_ca_fp);
-                printf("Current CA: %s\n", ca_fp);
+                fprintf(stdout, "CA fingerprint does not match\n");
+                fprintf(stdout, "Signin  CA: %s\n", signin_ca_fp);
+                fprintf(stdout, "Current CA: %s\n", ca_fp);
                 return -4;
         }
 
@@ -91,12 +91,12 @@ check_signature(char *filename, char* certpath)
         u_int64_t now = (u_int64_t) time(NULL);
         if (meta->valid_after > now )
         {
-                printf("Not yet valid\n");
+                fprintf(stdout, "Not yet valid\n");
                 return -5;
         }
         if (meta->valid_before < now)
         {
-                printf("Expired\n");
+                fprintf(stdout, "Expired\n");
                 return -6;
         }
 
