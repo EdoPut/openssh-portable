@@ -59,17 +59,17 @@ check_signature(char *filename, char* certpath)
 
         if ((r = sshkey_load_public(filename, &public_ca, &ca_comment)) != 0)
         {
-                printf("Bad key file %s: %s\n", filename, ssh_err(r));
+                fprintf(stderr, "Bad key file %s: %s\n", filename, ssh_err(r));
                 return -1;
         }
         if ((r = sshkey_load_public(certpath, &cert, &cert_comment)) != 0)
         {
-                printf("Bad certificate file %s: %s\n", certpath, ssh_err(r));
+                fprintf(stderr, "Bad certificate file %s: %s\n", certpath, ssh_err(r));
                 return -2;
         }
         if ((r = sshkey_is_cert(cert)) == 0)
         {
-                printf("File %s is not a certificate: %s\n", certpath, ssh_err(r));
+                fprintf(stderr, "File %s is not a certificate\n", certpath);
                 return -3;
         }
         // here begin real check
