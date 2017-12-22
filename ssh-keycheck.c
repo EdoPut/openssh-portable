@@ -105,8 +105,17 @@ check_signature(char *filename, char* certpath)
         return EXIT_SUCCESS;
 }
 
+static void
+usage(void)
+{
+        fprintf(stderr,
+                "       usage: ssh-keycheck ca_key certificate\n");
+        exit(1);
+}
+
 int
 main(int argc, char *argv[])
 {
+        if (argc != 3) usage();
         return check_signature(argv[1], argv[2]);
 }
