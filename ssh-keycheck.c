@@ -52,7 +52,7 @@ static int
 check_signature(char *filename, char* certpath)
 {
         char *ca_comment = NULL;
-        char *key_fp = NULL , *ca_fp = NULL, *signin_ca_fp = NULL;
+        char valid_interval[64], *ca_fp = NULL, *signin_ca_fp = NULL;
         char *cert_comment = NULL;
         struct sshkey *public_ca, *cert = NULL;
         int r, ret = -1;
@@ -86,17 +86,20 @@ check_signature(char *filename, char* certpath)
         }
 
         struct sshkey_cert *meta = cert->cert;
+        sshkey_format_cert_validity(meta, valid_interval, sizeof(valid_interval));
 
         // check expiration
         u_int64_t now = (u_int64_t) time(NULL);
         if (meta->valid_after > now )
         {
-                fprintf(stdout, "Not yet valid\n");
+                fprintf(stdout, "Not valid\n");
+                fprintf(stdout, "Validity interval %s\n", valid_interval);
                 return -5;
         }
         if (meta->valid_before < now)
         {
                 fprintf(stdout, "Expired\n");
+                fprintf(stdout, "Validity interval %s\n", valid_interval);
                 return -6;
         }
 
